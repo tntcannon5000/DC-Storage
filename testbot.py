@@ -2,14 +2,19 @@ import os
 import discord
 from dotenv import load_dotenv
 import asyncio
+import threading
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
+bot_ready_event = threading.Event()
+
 
 class MyClient(discord.Client):
     async def on_ready(self):
         print('Logged on as', self.user)
         print('------')
+        bot_ready_event.set()
+        
 
     async def on_message(self, message):
         if message.author.id == self.user.id:
@@ -27,6 +32,11 @@ class MyClient(discord.Client):
             await channel.send(message)
         else:
             print(f"Channel with id {channelid} not found")
+        
+        return channel
+    
+    async def get_guild(self, id: int) -> discord.Guild | None:
+        return super().get_guild(id)
 
 
 client = MyClient(intents=discord.Intents.all())
@@ -34,6 +44,7 @@ client = MyClient(intents=discord.Intents.all())
 # Create a function to start the bot asynchronously
 async def start_bot():
     await client.start(TOKEN)
+    
 
 # Create a function to stop the bot
 async def stop_bot():
@@ -43,3 +54,9 @@ async def stop_bot():
 def run_bot():
     loop = asyncio.get_event_loop()
     loop.create_task(start_bot())
+    return client
+
+def run_bot_sync():
+    asyncio.set_event_loop(asyncio.new_event_loop())
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(start_bot())
