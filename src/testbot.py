@@ -9,13 +9,12 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 bot_ready_event = threading.Event()
 
 
-class MyClient(discord.Client):
+class MyClient(discord.Client):    
     async def on_ready(self):
         print('Logged on as', self.user)
         print('------')
         bot_ready_event.set()
         
-
     async def on_message(self, message):
         if message.author.id == self.user.id:
             return
@@ -54,7 +53,6 @@ async def stop_bot():
 def run_bot():
     loop = asyncio.get_event_loop()
     loop.create_task(start_bot())
-    return client
 
 def run_bot_sync():
     asyncio.set_event_loop(asyncio.new_event_loop())

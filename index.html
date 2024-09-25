@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Test Button</title>
+    <title>Discord Interactions</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -26,6 +26,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 10px; /* Added margin for spacing */
         }
 
         button:hover {
@@ -46,16 +47,22 @@
         }
     </style>
     <script>
-        async function testFunction() {
-            const response = await fetch('/test');
+        async function sendMessage() {
+            const response = await fetch('/send_message');
+            const data = await response.json();
+        }
+
+        async function createChannel() {
+            const response = await fetch('/create_channel');
             const data = await response.json();
         }
     </script>
 </head>
 <body>
     <div class="container">
-        <h1>Test Button</h1>
-        <button onclick="testFunction()">Test</button>
+        <h1>Discord Interactions</h1>
+        <button onclick="sendMessage()">Send Message</button>
+        <button onclick="createChannel()">Create Channel</button>
     </div>
 </body>
 </html>

@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, JSONResponse
-import asyncio
-from testbot import client, run_bot
+from src.botutils import StorageBot
 from dotenv import find_dotenv, load_dotenv
 import os
 
@@ -10,21 +9,22 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 app = FastAPI()
 
-# Start the bot in the background
-run_bot()
+storage_bot = StorageBot()
 
-# Define a function to send a message
-async def send_message_to_channel(channel_id, message):
-    await client.send_message(channel_id, message)
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
     with open("index.html", "r") as file:
         return file.read()
 
-@app.get("/test")
-async def test_function():
+@app.get("/send_message")
+async def send_message_route():
     channel_id = 1287734078124068866  # Replace with your channel ID
     message = "Hello from Jupyter!"
-    await client.send_message(channel_id, message)
+    await storage_bot.send_message(channelid=channel_id, message=message)
     return JSONResponse({"message": "Message sent to Discord!"})
+
+@app.get("/create_channel") 
+async def create_channel_route():
+    channel = await storage_bot.create_text_channel(name="new-channel-from-api", category_name="tables", topic="This channel was created from an API!")
+    return JSONResponse({"message": f"Text channel '{channel}' created!"})
