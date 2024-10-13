@@ -1,44 +1,27 @@
-# main.py (FastAPI backend)
-from fastapi import FastAPI, File, UploadFile, Request
-from fastapi.responses import JSONResponse, HTMLResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
+# main.py (FastAPI)
+from fastapi import FastAPI, UploadFile, File
 import os
 from pathlib import Path
-
-
-BASE_DIR = Path(__file__).resolve().parent # for getting current directory, can adjust
+from typing import List, Dict # added type hints
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# ... (Other imports if needed)
-
-# Serving static files (if you're serving the 'dist' directory directly with FastAPI)
-app.mount("/static", StaticFiles(directory=str(BASE_DIR / "dist/assets")), name="static")
-templates = Jinja2Templates(directory=str(BASE_DIR / "dist")) # update template path
-
-@app.get("/", response_class=HTMLResponse)
-async def read_item(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request}) # server index.html
-
-# File upload endpoint
-@app.post("/uploadfile/")
-async def create_upload_file(file: UploadFile = File(...)):
-    uploads_dir = BASE_DIR / "uploads"
-    uploads_dir.mkdir(exist_ok=True) # makes uploads directory if doesnt exist yet
-    file_location = uploads_dir / file.filename
-    with open(file_location, "wb+") as file_object:
-        file_object.write(file.file.read())
-    return {"info": f"file '{file.filename}' saved at '{file_location}'"}
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Change this to the frontend URL in production
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
-# Get files endpoint
-@app.get("/files/")
-async def get_files():
-    files = []
-    uploads_dir = BASE_DIR / "uploads"
-    if uploads_dir.exists():
-        for filename in os.listdir(uploads_dir):
-            size = os.path.getsize(uploads_dir / filename)
-            files.append({"name": filename, "size": size})
+files = [
+    {"name": "file1.txt", "size": "2 KB"},
+    {"name": "file2.jpg", "size": "5 MB"},
+    {"name": "file3.pdf", "size": "500 KB"}
+]
+
+# Endpoint to get file information
+@app.get("/files")
+def get_files():
     return files
