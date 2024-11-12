@@ -1,17 +1,41 @@
 import { useState } from 'react'
-import UploadArea from './UploadArea'
 import FileDisplayArea from './FileDisplayArea'
+import GlobalFileDropzone from './GlobalFileDropzone'
+import bgVideo from './assets/bg.mp4'
 
 export default function App() {
+  const [fileInfo, setFileInfo] = useState(null)
+
+  const handleFilesDrop = (files) => {
+    const file = files[0];
+    const fileInfo = {
+      name: file.name,
+      size: file.size,
+      type: file.type
+    };
+    setFileInfo(fileInfo);
+    console.log("Dropped files:", fileInfo)
+  };
+
   return (
-    <main className="flex items-center justify-center min-h-screen bg-black ">
-      <div className="space-y-8">
-        <h1 className="text-6xl text-center text-stone-400">Discord Data Storage!</h1>
-        <FileDisplayArea />
-        <div className="mx-[4vw]">
-          <UploadArea />
-        </div>
-      </div>
-    </main>
+    <GlobalFileDropzone onFilesDrop={handleFilesDrop}>
+      <video autoPlay loop muted playsInline className="fixed top-0 left-0 min-w-full min-h-screen w-auto h-auto object-cover -z-10">
+        <source src={bgVideo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <main className="flex pt-20 justify-center min-h-screen">
+          <div className="space-y-8">
+            <h1 className="text-6xl text-center text-[#E5B8F4] pb-12">Discord Data Storage!</h1>
+            <div className='grid grid-cols-2'>
+              <div>
+                <FileDisplayArea />
+              </div>
+              <div>
+                <FileDisplayArea />
+              </div>
+            </div>
+          </div>
+      </main>
+    </GlobalFileDropzone>
   )
 }
