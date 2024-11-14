@@ -11,7 +11,7 @@ const FileDisplayArea = () => {
         .then((data) => setFiles(data))
         .catch((error) => console.error('Error fetching files:', error));
     }, []);
-
+    
     const handleDownload = (id) => {
         const downloadUrl = `http://localhost:8000/download/${id}`;
         // Create a hidden link element and click it to start the download

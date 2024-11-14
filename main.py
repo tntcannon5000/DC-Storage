@@ -17,6 +17,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+folders = [
+    {"uuid": str(uuid.uuid4()), "name": "Documents"},
+    {"uuid": str(uuid.uuid4()), "name": "Pictures"},
+    {"uuid": str(uuid.uuid4()), "name": "Music"},
+    {"uuid": str(uuid.uuid4()), "name": "Videos"},
+    {"uuid": str(uuid.uuid4()), "name": "Downloads"}
+]
+
 files = [
     {"uuid": str(uuid.uuid4()), "name": "file1", "ext": "txt", "size": "2 KB"},
     {"uuid": str(uuid.uuid4()), "name": "file1", "ext": "txt", "size": "2 KB"},
@@ -72,6 +80,10 @@ if testfile_path.exists():
 @app.get("/files")
 def get_files():
     return files
+
+@app.get("/folders")
+def get_files():
+    return folders
 
 # Endpoint to upload files
 
