@@ -24,7 +24,7 @@ const FileDisplayArea = () => {
       };
     
       return (
-        <div className="grid grid-cols-3 gap-4 p-4">
+        <div className="grid gap-4 p-4 place-items-center grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] ">
           {files.map((file) => (
             <FileDisplay
               key={file.uuid} // Use UUID as the key
@@ -35,7 +35,7 @@ const FileDisplayArea = () => {
               onDownload={handleDownload}
             />
           ))}
-        </div>
+          </div>
       );
     };
 

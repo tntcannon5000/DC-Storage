@@ -3,7 +3,7 @@ import { useState } from 'react';
 export default function FileDisplay({ fileName, fileExt, fileSize, fileUUID, onDownload }) {
 
   return (
-    <div className="bg-[#1A0B2E] bg-opacity-45 text-white p-4 rounded-xl border border-[#B23AFC] border-x-2 border-y-2 w-48 h-48 flex flex-col justify-center items-center">
+    <div className="bg-[#1A0B2E] bg-opacity-45 text-white p-4 rounded-xl border border-[#B23AFC] border-x-2 border-y-2 w-40 h-40 my-1 flex flex-col justify-center items-center">
       <p className="text-xl font-semibold text-gray-100 text-center">{fileName+"."+fileExt}</p>
       <p className="text-base text-gray-400 text-center">{fileSize}</p>
       <button
