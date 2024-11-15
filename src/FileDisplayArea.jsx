@@ -14,7 +14,16 @@ const FileDisplayArea = ({ files }) => {
     };
 
     return (
-        <div className="grid gap-4 p-4 place-items-center grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] ">
+        <div className="grid gap-4 p-4 place-items-center
+  grid-cols-2          // Mobile: 1 column
+  sm:grid-cols-2       // Small screens (640px+): 2 columns
+  md:grid-cols-3       // Medium screens (768px+): 3 columns
+  lg:grid-cols-4       // Large screens (1024px+): 4 columns
+  xl:grid-cols-5       // Extra large screens (1280px+): 5 columns
+  2xl:grid-cols-6       // Extra large screens (1280px+): 5 columns
+  3xl:grid-cols-7
+  
+">
             {Array.isArray(files) && files.length > 0 ? (
                 files.map((file) => (
                     <FileDisplay

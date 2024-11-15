@@ -3,11 +3,12 @@ import { useState } from 'react';
 export default function FileDisplay({ fileName, fileExt, fileSize, fileUUID, onDownload }) {
 
   return (
-    <div className="bg-[#1A0B2E] bg-opacity-45 text-white p-4 rounded-xl border border-[#B23AFC] border-x-2 border-y-2 w-40 h-40 my-1 flex flex-col justify-center items-center">
-      <p className="text-xl font-semibold text-gray-100 text-center">{fileName+"."+fileExt}</p>
-      <p className="text-base text-gray-400 text-center">{fileSize}</p>
+    <div className="relative bg-[#1A0B2E] bg-opacity-45 text-white select-none p-4 rounded-xl border border-[#B23AFC] border-x-2 border-y-2 w-40 h-40 my-1 flex flex-col justify-center items-center">
+      <p className="absolute top-1 right-2 text-sm select-none text-gray-400">{fileExt}</p>
+      <p className="text-xl font-semibold text-gray-100 select-none text-center">{fileName}</p>
+      <p className="text-base text-gray-400 select-none text-center">{fileSize}</p>
       <button
-        className="mt-2 bg-fuchsia-700 hover:bg-slate-800 transition-colors duration-300 text-white py-1 px-1 rounded flex items-center"
+        className="absolute bottom-1 right-1 bg-opacity-75 bg-fuchsia-500 hover:bg-fuchsia-700 transition-colors duration-300 text-white select-none py-1 px-1 rounded-lg flex items-center"
         onClick={() => [onDownload(fileUUID)]}
       >
         <svg

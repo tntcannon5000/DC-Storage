@@ -137,4 +137,3 @@ async def download_file(file_uuid: str):
     return Response(bytes_io.read(), media_type='application/octet-stream', headers={
         "Content-Disposition": f"attachment; filename={filename}"
     })
-    

@@ -49,7 +49,7 @@ const FoldersArea = () => {
                                 folderName={folder.name}
                                 folderUUID={folder.uuid}
                                 onDownload={handleFolderClick}
-                                className={folder.uuid == currentFolder ? 'bg-purple-500' : 'bg-[#1A0B2E]'}
+                                className={folder.uuid == currentFolder ? 'bg-purple-600 bg-opacity-20' : 'bg-[#1A0B2E]'}
                             />
                         ))}
                     </div>
