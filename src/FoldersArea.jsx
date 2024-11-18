@@ -39,7 +39,7 @@ const FoldersArea = () => {
             <div class="flex">
                 <div class="w-2/12">
                     <div className='grid grid-cols-1 p-4'>
-                    <div className="bg-[#1A0B2E] bg-opacity-45 text-white select-none text-lg p-4 rounded-xl border border-[#00FFE1] border-opacity-70 border-x-2 border-y-2 w-full h-10  my-1 flex flex-col justify-center items-center cursor-pointer"
+                    <div className="bg-[#1A0B2E] bg-opacity-45 text-white text-center select-none text-md xl:text-lg p-4 rounded-xl border border-[#00FFE1] border-opacity-70 border-x-2 border-y-2 w-full h-12  my-1 flex flex-col justify-center items-center cursor-pointer"
                     onClick={showPopup}> New Folder
                     {/* Here, insert onclick functionality for a popup to appear, with a text box for a folder name, and an enter button which posts the foldername to the backend*/}
                     </div>
